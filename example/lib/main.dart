@@ -146,6 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 popupItemDisabled: (String s) => s.startsWith('I'),
                 clearButtonSplashRadius: 20,
                 selectedItems: ["Tunisia"],
+                topText: 'Selected',
               ),
               Divider(),
 
@@ -159,6 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   border: OutlineInputBorder(),
                 ),
                 mode: Mode.MENU,
+                topText: 'Selected',
                 showSelectedItems: true,
                 items: ["Brazil", "Italia (Disabled)", "Tunisia", 'Canada'],
                 showClearButton: true,
@@ -210,6 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   border: OutlineInputBorder(),
                 ),
                 mode: Mode.MENU,
+                topText: 'Selected',
                 showSelectedItems: true,
                 items: ["Brazil", "Italia", "Tunisia", 'Canada'],
                 onChanged: print,
@@ -253,6 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: DropdownSearch<String>(
                       validator: (v) => v == null ? "required field" : null,
                       mode: Mode.MENU,
+                      topText: 'Selected',
                       dropdownSearchDecoration: InputDecoration(
                         hintText: "Select a country",
                         labelText: "Menu mode *",
@@ -317,6 +321,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
+                topText: 'Selected',
                 mode: Mode.BOTTOM_SHEET,
                 maxHeight: 700,
                 isFilteredOnline: true,
@@ -350,6 +355,7 @@ class _MyHomePageState extends State<MyHomePage> {
               DropdownSearch<UserModel>(
                 showSelectedItems: true,
                 compareFn: (i, s) => i?.isEqual(s) ?? false,
+                topText: 'Selected',
                 dropdownSearchDecoration: InputDecoration(
                   labelText: "Person",
                   contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
@@ -366,6 +372,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
               ///BottomSheet Mode with no searchBox
               DropdownSearch<String>(
+                topText: 'Selected',
                 mode: Mode.BOTTOM_SHEET,
                 items: [
                   "Brazil",
@@ -383,6 +390,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onChanged: print,
                 selectedItem: "Brazil",
+                noDataText: 'No Data',
                 showSearchBox: true,
                 searchFieldProps: TextFieldProps(
                   decoration: InputDecoration(
@@ -424,6 +432,7 @@ class _MyHomePageState extends State<MyHomePage> {
               DropdownSearch<UserModel>.multiSelection(
                 showSelectedItems: true,
                 showSearchBox: true,
+                topText: 'Selected',
                 compareFn: (i, s) => i?.isEqual(s) ?? false,
                 dropdownSearchDecoration: InputDecoration(
                   labelText: "Person with favorite option",
@@ -473,6 +482,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   UserModel(name: "Offline name2", id: "0101")
                 ],
                 maxHeight: 300,
+                topText: 'Selected',
                 onFind: (String? filter) => getData(filter),
                 dropdownSearchDecoration: InputDecoration(
                   labelText: "choose a user",
@@ -487,6 +497,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ///open dropdown programmatically
               DropdownSearch<String>(
                 items: ["no action", "confirm in the next dropdown"],
+                topText: 'Selected',
                 dropdownSearchDecoration: InputDecoration(
                   labelText: "open another dropdown programmatically",
                   contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
@@ -501,6 +512,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Padding(padding: EdgeInsets.all(4)),
               DropdownSearch<String>(
                 validator: (value) => value == null ? "empty" : null,
+                topText: 'Selected',
                 key: _openDropDownProgKey,
                 items: ["Yes", "No"],
                 dropdownSearchDecoration: InputDecoration(

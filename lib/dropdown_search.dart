@@ -3,6 +3,8 @@ library dropdown_search;
 import 'dart:async';
 
 import 'package:dropdown_search/src/properties/selection_list_view_props.dart';
+import 'package:dropdown_search/src/theme/ThemeSelection.dart';
+import 'package:dropdown_search/src/theme/theme_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -268,6 +270,9 @@ class DropdownSearch<T> extends StatefulWidget {
   /// function to override position calculation
   final PositionCallback? positionCallback;
 
+  final String topText;
+  final String? noDataText;
+
   DropdownSearch({
     Key? key,
     this.onSaved,
@@ -279,6 +284,8 @@ class DropdownSearch<T> extends StatefulWidget {
     @Deprecated('Use hintText prop from dropdownSearchDecoration') this.hint,
     this.isFilteredOnline = false,
     this.popupTitle,
+    required this.topText,
+    this.noDataText,
     this.items,
     this.selectedItem,
     this.onFind,
@@ -353,6 +360,8 @@ class DropdownSearch<T> extends StatefulWidget {
     this.popupTitle,
     this.items,
     this.onFind,
+    required this.topText,
+    this.noDataText,
     this.popupItemBuilder,
     this.showSearchBox = false,
     this.showClearButton = false,
@@ -511,8 +520,12 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
               .toList(),
         );
       }
-      return Text(_selectedItemAsString(getSelectedItem),
-          style: Theme.of(context).textTheme.subtitle1);
+      return Text(
+        _selectedItemAsString(getSelectedItem),
+        style: TextStyle(
+          color: isDarkMode ? darkMode.textColor : lightMode.textColor,
+        ),
+      );
     }
 
     return Row(
@@ -788,6 +801,8 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
   Widget _selectDialogInstance({double? defaultHeight}) {
     return SelectionWidget<T>(
       key: _popupStateKey,
+      topText: widget.topText,
+      noDataText: widget.noDataText,
       popupTitle: widget.popupTitle,
       maxHeight: widget.maxHeight ?? defaultHeight,
       isFilteredOnline: widget.isFilteredOnline,

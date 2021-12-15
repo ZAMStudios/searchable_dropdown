@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:dropdown_search/src/properties/selection_list_view_props.dart';
+import 'package:dropdown_search/src/theme/ThemeSelection.dart';
+import 'package:dropdown_search/src/theme/theme_color.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +23,7 @@ class SelectionWidget<T> extends StatefulWidget {
   final DropdownSearchItemAsString<T>? itemAsString;
   final DropdownSearchFilterFn<T>? filterFn;
   final String? hintText;
+  final String? noDataText;
 
   final double? maxHeight;
   final double? dialogMaxWidth;
@@ -85,9 +88,12 @@ class SelectionWidget<T> extends StatefulWidget {
   /// props for selection focus node
   final FocusNode focusNode;
 
+  final String topText;
+
   const SelectionWidget({
     Key? key,
     this.popupTitle,
+    required this.topText,
     this.items,
     this.maxHeight,
     this.showSearchBox = false,
@@ -97,6 +103,7 @@ class SelectionWidget<T> extends StatefulWidget {
     this.onFind,
     this.itemBuilder,
     this.hintText,
+    this.noDataText,
     this.itemAsString,
     this.filterFn,
     this.showSelectedItems = false,
@@ -179,109 +186,173 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
 
     return Container(
       clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(),
+      decoration: BoxDecoration(
+        color: isDarkMode ? darkMode.containerColor : lightMode.containerColor,
+      ),
       width: widget.dialogMaxWidth ?? maxWidth,
       constraints: BoxConstraints(maxHeight: widget.maxHeight ?? maxHeight),
       child: ValueListenableBuilder(
           valueListenable: _selectedItemsNotifier,
           builder: (ctx, value, wdgt) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                _searchField(),
-                _favoriteItemsWidget(),
-                Expanded(
-                  child: Stack(
-                    children: <Widget>[
-                      StreamBuilder<List<T>>(
-                        stream: _itemsStream.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return _errorWidget(snapshot.error);
-                          } else if (!snapshot.hasData) {
-                            return _loadingWidget();
-                          } else if (snapshot.data!.isEmpty) {
-                            if (widget.emptyBuilder != null)
-                              return widget.emptyBuilder!(
-                                context,
-                                widget.searchFieldProps?.controller?.text,
-                              );
-                            else
-                              return const Center(
-                                child: const Text("No data found"),
-                              );
-                          }
-                          return MediaQuery.removePadding(
-                            removeBottom: true,
-                            removeTop: true,
-                            context: context,
-                            child: Scrollbar(
-                              controller: widget.scrollbarProps?.controller,
-                              isAlwaysShown:
-                                  widget.scrollbarProps?.isAlwaysShown,
-                              showTrackOnHover:
-                                  widget.scrollbarProps?.showTrackOnHover,
-                              hoverThickness:
-                                  widget.scrollbarProps?.hoverThickness,
-                              thickness: widget.scrollbarProps?.thickness,
-                              radius: widget.scrollbarProps?.radius,
-                              notificationPredicate:
-                                  widget.scrollbarProps?.notificationPredicate,
-                              interactive: widget.scrollbarProps?.interactive,
-                              child: ListView.builder(
-                                shrinkWrap:
-                                    widget.selectionListViewProps.shrinkWrap,
-                                padding: widget.selectionListViewProps.padding,
-                                scrollDirection: widget
-                                    .selectionListViewProps.scrollDirection,
-                                reverse: widget.selectionListViewProps.reverse,
-                                controller:
-                                    widget.selectionListViewProps.controller,
-                                primary: widget.selectionListViewProps.primary,
-                                physics: widget.selectionListViewProps.physics,
-                                itemExtent:
-                                    widget.selectionListViewProps.itemExtent,
-                                addAutomaticKeepAlives: widget
-                                    .selectionListViewProps
-                                    .addAutomaticKeepAlives,
-                                addRepaintBoundaries: widget
-                                    .selectionListViewProps
-                                    .addRepaintBoundaries,
-                                addSemanticIndexes: widget
-                                    .selectionListViewProps.addSemanticIndexes,
-                                cacheExtent:
-                                    widget.selectionListViewProps.cacheExtent,
-                                semanticChildCount: widget
-                                    .selectionListViewProps.semanticChildCount,
-                                dragStartBehavior: widget
-                                    .selectionListViewProps.dragStartBehavior,
-                                keyboardDismissBehavior: widget
-                                    .selectionListViewProps
-                                    .keyboardDismissBehavior,
-                                restorationId:
-                                    widget.selectionListViewProps.restorationId,
-                                clipBehavior:
-                                    widget.selectionListViewProps.clipBehavior,
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) {
-                                  var item = snapshot.data![index];
-                                  return widget.isMultiSelectionMode
-                                      ? _itemWidgetMultiSelection(item)
-                                      : _itemWidgetSingleSelection(item);
-                                },
-                              ),
+            return Padding(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        IconButton(
+                            icon: Icon(
+                              Icons.arrow_back_ios_rounded,
+                              color: isDarkMode
+                                  ? darkMode.textColor
+                                  : lightMode.textColor,
                             ),
-                          );
-                        },
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                        Text(
+                          widget.topText,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: isDarkMode
+                                ? darkMode.textColor
+                                : lightMode.textColor,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Row(
+                            children: [
+                              Icon(Icons.clear, size: 24),
+                              // Image.asset(
+                              //   'assets/icons/cross icon.png',
+                              //   scale: 1.5,
+                              //   color: isDarkMode
+                              //       ? darkMode.textColor
+                              //       : lightMode.textColor,
+                              // ),
+                              SizedBox(
+                                width: 7,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    _searchField(),
+                    _favoriteItemsWidget(),
+                    Expanded(
+                      child: Stack(
+                        children: <Widget>[
+                          StreamBuilder<List<T>>(
+                            stream: _itemsStream.stream,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return _errorWidget(snapshot.error);
+                              } else if (!snapshot.hasData) {
+                                return _loadingWidget();
+                              } else if (snapshot.data!.isEmpty) {
+                                if (widget.emptyBuilder != null)
+                                  return widget.emptyBuilder!(
+                                    context,
+                                    widget.searchFieldProps?.controller?.text,
+                                  );
+                                else
+                                  return Center(
+                                    child: Text(
+                                      widget.noDataText!,
+                                      style: TextStyle(
+                                        color: isDarkMode
+                                            ? darkMode.textColor
+                                            : lightMode.textColor,
+                                      ),
+                                    ),
+                                  );
+                              }
+                              return MediaQuery.removePadding(
+                                removeBottom: true,
+                                removeTop: true,
+                                context: context,
+                                child: Scrollbar(
+                                  controller: widget.scrollbarProps?.controller,
+                                  isAlwaysShown:
+                                      widget.scrollbarProps?.isAlwaysShown,
+                                  showTrackOnHover:
+                                      widget.scrollbarProps?.showTrackOnHover,
+                                  hoverThickness:
+                                      widget.scrollbarProps?.hoverThickness,
+                                  thickness: widget.scrollbarProps?.thickness,
+                                  radius: widget.scrollbarProps?.radius,
+                                  notificationPredicate: widget
+                                      .scrollbarProps?.notificationPredicate,
+                                  interactive:
+                                      widget.scrollbarProps?.interactive,
+                                  child: ListView.builder(
+                                    shrinkWrap: widget
+                                        .selectionListViewProps.shrinkWrap,
+                                    padding:
+                                        widget.selectionListViewProps.padding,
+                                    scrollDirection: widget
+                                        .selectionListViewProps.scrollDirection,
+                                    reverse:
+                                        widget.selectionListViewProps.reverse,
+                                    controller: widget
+                                        .selectionListViewProps.controller,
+                                    primary:
+                                        widget.selectionListViewProps.primary,
+                                    physics:
+                                        widget.selectionListViewProps.physics,
+                                    itemExtent: widget
+                                        .selectionListViewProps.itemExtent,
+                                    addAutomaticKeepAlives: widget
+                                        .selectionListViewProps
+                                        .addAutomaticKeepAlives,
+                                    addRepaintBoundaries: widget
+                                        .selectionListViewProps
+                                        .addRepaintBoundaries,
+                                    addSemanticIndexes: widget
+                                        .selectionListViewProps
+                                        .addSemanticIndexes,
+                                    cacheExtent: widget
+                                        .selectionListViewProps.cacheExtent,
+                                    semanticChildCount: widget
+                                        .selectionListViewProps
+                                        .semanticChildCount,
+                                    dragStartBehavior: widget
+                                        .selectionListViewProps
+                                        .dragStartBehavior,
+                                    keyboardDismissBehavior: widget
+                                        .selectionListViewProps
+                                        .keyboardDismissBehavior,
+                                    restorationId: widget
+                                        .selectionListViewProps.restorationId,
+                                    clipBehavior: widget
+                                        .selectionListViewProps.clipBehavior,
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      var item = snapshot.data![index];
+                                      return widget.isMultiSelectionMode
+                                          ? _itemWidgetMultiSelection(item)
+                                          : _itemWidgetSingleSelection(item);
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          _loadingWidget()
+                        ],
                       ),
-                      _loadingWidget()
-                    ],
-                  ),
-                ),
-                _multiSelectionValidation(),
-              ],
-            );
+                    ),
+                    _multiSelectionValidation(),
+                  ],
+                ));
           }),
     );
   }
