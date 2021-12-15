@@ -90,6 +90,8 @@ class SelectionWidget<T> extends StatefulWidget {
 
   final String topText;
 
+  final bool isDark;
+
   const SelectionWidget({
     Key? key,
     this.popupTitle,
@@ -104,6 +106,7 @@ class SelectionWidget<T> extends StatefulWidget {
     this.itemBuilder,
     this.hintText,
     this.noDataText,
+    this.isDark = false,
     this.itemAsString,
     this.filterFn,
     this.showSelectedItems = false,
@@ -147,6 +150,7 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
   @override
   void initState() {
     super.initState();
+    isDarkMode = widget.isDark;
     _debouncer = Debouncer(delay: widget.searchDelay);
     _selectedItemsNotifier.value = widget.selectedValues;
 

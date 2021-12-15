@@ -61,6 +61,7 @@ enum Mode { DIALOG, BOTTOM_SHEET, MENU }
 class DropdownSearch<T> extends StatefulWidget {
   ///DropDownSearch label
   final String? label;
+  final bool isDark;
 
   ///DropDownSearch hint
   final String? hint;
@@ -277,6 +278,7 @@ class DropdownSearch<T> extends StatefulWidget {
     Key? key,
     this.onSaved,
     this.validator,
+    this.isDark = false,
     this.autoValidateMode = AutovalidateMode.disabled,
     this.onChanged,
     this.mode = Mode.DIALOG,
@@ -359,6 +361,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.isFilteredOnline = false,
     this.popupTitle,
     this.items,
+    this.isDark = false,
     this.onFind,
     required this.topText,
     this.noDataText,
@@ -444,6 +447,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
   @override
   void initState() {
     super.initState();
+    isDarkMode = widget.isDark;
     _selectedItemsNotifier.value = isMultiSelectionMode
         ? List.from(widget.selectedItems)
         : _itemToList(widget.selectedItem);
@@ -803,6 +807,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       key: _popupStateKey,
       topText: widget.topText,
       noDataText: widget.noDataText,
+      isDark: widget.isDark,
       popupTitle: widget.popupTitle,
       maxHeight: widget.maxHeight ?? defaultHeight,
       isFilteredOnline: widget.isFilteredOnline,
