@@ -233,7 +233,13 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                           },
                           child: Row(
                             children: [
-                              Icon(Icons.clear, size: 24),
+                              Icon(
+                                Icons.clear,
+                                size: 24,
+                                color: isDarkMode
+                                    ? darkMode.textColor
+                                    : lightMode.textColor,
+                              ),
                               // Image.asset(
                               //   'assets/icons/cross icon.png',
                               //   scale: 1.5,
