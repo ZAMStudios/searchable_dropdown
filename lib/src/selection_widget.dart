@@ -207,16 +207,36 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        IconButton(
-                            icon: Icon(
-                              Icons.arrow_back_ios_rounded,
-                              color: isDarkMode
-                                  ? darkMode.textColor
-                                  : lightMode.textColor,
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            }),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 7,
+                              ),
+                              Icon(
+                                Icons.arrow_back_ios_rounded,
+                                size: 20,
+                                color: isDarkMode
+                                    ? darkMode.textColor
+                                    : lightMode.textColor,
+                              ),
+                              // Image.asset(
+                              //   'assets/icons/cross icon.png',
+                              //   scale: 1.5,
+                              //   color: isDarkMode
+                              //       ? darkMode.textColor
+                              //       : lightMode.textColor,
+                              // ),
+                              // SizedBox(
+                              //   width: 7,
+                              // )
+                            ],
+                          ),
+                        ),
+                        Spacer(),
                         Text(
                           widget.topText,
                           style: TextStyle(
@@ -227,6 +247,7 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                                 : lightMode.textColor,
                           ),
                         ),
+                        Spacer(),
                         InkWell(
                           onTap: () {
                             Navigator.pop(context);
