@@ -205,7 +205,7 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         IconButton(
                             icon: Icon(
