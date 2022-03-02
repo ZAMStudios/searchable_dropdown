@@ -692,7 +692,12 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
             elevation: widget.popupElevation,
             shape: widget.popupShape,
             backgroundColor: widget.popupBackgroundColor,
-            content: _selectDialogInstance(),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _selectDialogInstance(),
+              ],
+            ),
             insetPadding: EdgeInsets.zero,
             contentPadding: EdgeInsets.zero,
             clipBehavior: Clip.antiAliasWithSaveLayer,
