@@ -223,16 +223,6 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                                     ? darkMode.textColor
                                     : lightMode.textColor,
                               ),
-                              // Image.asset(
-                              //   'assets/icons/cross icon.png',
-                              //   scale: 1.5,
-                              //   color: isDarkMode
-                              //       ? darkMode.textColor
-                              //       : lightMode.textColor,
-                              // ),
-                              // SizedBox(
-                              //   width: 7,
-                              // )
                             ],
                           ),
                         ),
@@ -240,7 +230,7 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                         Text(
                           widget.topText,
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 19,
                             fontWeight: FontWeight.w700,
                             color: isDarkMode
                                 ? darkMode.textColor
@@ -261,13 +251,6 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                                     ? darkMode.textColor
                                     : lightMode.textColor,
                               ),
-                              // Image.asset(
-                              //   'assets/icons/cross icon.png',
-                              //   scale: 1.5,
-                              //   color: isDarkMode
-                              //       ? darkMode.textColor
-                              //       : lightMode.textColor,
-                              // ),
                               SizedBox(
                                 width: 7,
                               )
