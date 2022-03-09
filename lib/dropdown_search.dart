@@ -272,6 +272,7 @@ class DropdownSearch<T> extends StatefulWidget {
   final PositionCallback? positionCallback;
 
   final String topText;
+  final double topTextSize;
   final String? noDataText;
 
   DropdownSearch({
@@ -287,6 +288,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.isFilteredOnline = false,
     this.popupTitle,
     required this.topText,
+    this.topTextSize = 17.0,
     this.noDataText,
     this.items,
     this.selectedItem,
@@ -364,6 +366,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.isDark = false,
     this.onFind,
     required this.topText,
+    this.topTextSize = 17.0,
     this.noDataText,
     this.popupItemBuilder,
     this.showSearchBox = false,
@@ -808,6 +811,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
     return SelectionWidget<T>(
       key: _popupStateKey,
       topText: widget.topText,
+      topTextSize: widget.topTextSize,
       noDataText: widget.noDataText,
       isDark: widget.isDark,
       popupTitle: widget.popupTitle,

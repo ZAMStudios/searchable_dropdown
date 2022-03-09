@@ -89,6 +89,7 @@ class SelectionWidget<T> extends StatefulWidget {
   final FocusNode focusNode;
 
   final String topText;
+  final double topTextSize;
 
   final bool isDark;
 
@@ -128,6 +129,7 @@ class SelectionWidget<T> extends StatefulWidget {
     this.popupOnItemRemoved,
     this.popupSelectionWidget,
     this.isMultiSelectionMode = false,
+    required this.topTextSize,
     this.popupValidationMultiSelectionWidget,
     this.popupCustomMultiSelectionWidget,
     this.selectionListViewProps = const SelectionListViewProps(),
@@ -230,7 +232,7 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                         Text(
                           widget.topText,
                           style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 17,
                             fontWeight: FontWeight.w700,
                             color: isDarkMode
                                 ? darkMode.textColor
