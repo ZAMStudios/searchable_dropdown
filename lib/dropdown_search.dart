@@ -3,8 +3,6 @@ library dropdown_search;
 import 'dart:async';
 
 import 'package:dropdown_search/src/properties/selection_list_view_props.dart';
-import 'package:dropdown_search/src/theme/ThemeSelection.dart';
-import 'package:dropdown_search/src/theme/theme_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -61,7 +59,7 @@ enum Mode { DIALOG, BOTTOM_SHEET, MENU }
 class DropdownSearch<T> extends StatefulWidget {
   ///DropDownSearch label
   final String? label;
-  final bool isDark;
+  // final bool isDark;
 
   ///DropDownSearch hint
   final String? hint;
@@ -279,7 +277,7 @@ class DropdownSearch<T> extends StatefulWidget {
     Key? key,
     this.onSaved,
     this.validator,
-    this.isDark = false,
+    // this.isDark = false,
     this.autoValidateMode = AutovalidateMode.disabled,
     this.onChanged,
     this.mode = Mode.DIALOG,
@@ -363,7 +361,7 @@ class DropdownSearch<T> extends StatefulWidget {
     this.isFilteredOnline = false,
     this.popupTitle,
     this.items,
-    this.isDark = false,
+    // this.isDark = false,
     this.onFind,
     required this.topText,
     this.topTextSize = 17.0,
@@ -450,7 +448,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
   @override
   void initState() {
     super.initState();
-    isDarkMode = widget.isDark;
+    // isDarkMode = widget.isDark;
     _selectedItemsNotifier.value = isMultiSelectionMode
         ? List.from(widget.selectedItems)
         : _itemToList(widget.selectedItem);
@@ -530,8 +528,8 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       return Text(
         _selectedItemAsString(getSelectedItem),
         style: TextStyle(
-          color: isDarkMode ? darkMode.textColor : lightMode.textColor,
-        ),
+            // color: isDarkMode ? darkMode.textColor : lightMode.textColor,
+            ),
       );
     }
 
@@ -813,7 +811,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       topText: widget.topText,
       topTextSize: widget.topTextSize,
       noDataText: widget.noDataText,
-      isDark: widget.isDark,
+      // isDark: widget.isDark,
       popupTitle: widget.popupTitle,
       maxHeight: widget.maxHeight ?? defaultHeight,
       isFilteredOnline: widget.isFilteredOnline,

@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:dropdown_search/src/properties/selection_list_view_props.dart';
-import 'package:dropdown_search/src/theme/ThemeSelection.dart';
-import 'package:dropdown_search/src/theme/theme_color.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -91,7 +89,7 @@ class SelectionWidget<T> extends StatefulWidget {
   final String topText;
   final double topTextSize;
 
-  final bool isDark;
+  // final bool isDark;
 
   const SelectionWidget({
     Key? key,
@@ -107,7 +105,7 @@ class SelectionWidget<T> extends StatefulWidget {
     this.itemBuilder,
     this.hintText,
     this.noDataText,
-    this.isDark = false,
+    // this.isDark = false,
     this.itemAsString,
     this.filterFn,
     this.showSelectedItems = false,
@@ -152,7 +150,7 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
   @override
   void initState() {
     super.initState();
-    isDarkMode = widget.isDark;
+    // isDarkMode = widget.isDark;
     _debouncer = Debouncer(delay: widget.searchDelay);
     _selectedItemsNotifier.value = widget.selectedValues;
 
@@ -193,8 +191,8 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: isDarkMode ? darkMode.containerColor : lightMode.containerColor,
-      ),
+          // color: isDarkMode ? darkMode.containerColor : lightMode.containerColor,
+          ),
       width: widget.dialogMaxWidth ?? maxWidth,
       constraints: BoxConstraints(maxHeight: widget.maxHeight ?? maxHeight),
       child: ValueListenableBuilder(
@@ -221,9 +219,9 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                               Icon(
                                 Icons.arrow_back_ios_rounded,
                                 size: 20,
-                                color: isDarkMode
-                                    ? darkMode.textColor
-                                    : lightMode.textColor,
+                                // color: isDarkMode
+                                //     ? darkMode.textColor
+                                //     : lightMode.textColor,
                               ),
                             ],
                           ),
@@ -234,9 +232,9 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w700,
-                            color: isDarkMode
-                                ? darkMode.textColor
-                                : lightMode.textColor,
+                            // color: isDarkMode
+                            //     ? darkMode.textColor
+                            //     : lightMode.textColor,
                           ),
                         ),
                         Spacer(),
@@ -249,9 +247,9 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                               Icon(
                                 Icons.clear,
                                 size: 24,
-                                color: isDarkMode
-                                    ? darkMode.textColor
-                                    : lightMode.textColor,
+                                // color: isDarkMode
+                                //     ? darkMode.textColor
+                                //     : lightMode.textColor,
                               ),
                               SizedBox(
                                 width: 7,
@@ -284,10 +282,10 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                                     child: Text(
                                       widget.noDataText!,
                                       style: TextStyle(
-                                        color: isDarkMode
-                                            ? darkMode.textColor
-                                            : lightMode.textColor,
-                                      ),
+                                          // color: isDarkMode
+                                          //     ? darkMode.textColor
+                                          //     : lightMode.textColor,
+                                          ),
                                     ),
                                   );
                               }
