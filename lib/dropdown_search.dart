@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'common_function.dart';
 import 'src/modal_dialog.dart';
 import 'src/popupMenu.dart';
 import 'src/properties/popup_safearea_props.dart';
@@ -529,7 +530,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       return Text(
         _selectedItemAsString(getSelectedItem),
         style: TextStyle(
-          fontSize: 20,
+          fontSize: check(context)?20:16,
             // color: isDarkMode ? darkMode.textColor : lightMode.textColor,
             ),
       );
