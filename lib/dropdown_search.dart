@@ -513,7 +513,8 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
           context,
           getSelectedItem,
         );
-      } else if (widget.dropdownBuilderMultiSelection != null)
+      }
+      else if (widget.dropdownBuilderMultiSelection != null)
         return widget.dropdownBuilderMultiSelection!(
           context,
           getSelectedItems,
@@ -528,6 +529,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       return Text(
         _selectedItemAsString(getSelectedItem),
         style: TextStyle(
+          fontSize: 20,
             // color: isDarkMode ? darkMode.textColor : lightMode.textColor,
             ),
       );
