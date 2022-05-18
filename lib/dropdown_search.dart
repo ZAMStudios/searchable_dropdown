@@ -530,7 +530,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       return Text(
         _selectedItemAsString(getSelectedItem),
         style: TextStyle(
-          fontSize: check(context)?20:16,
+          fontSize: check(context)?20:14,
             // color: isDarkMode ? darkMode.textColor : lightMode.textColor,
             ),
       );
