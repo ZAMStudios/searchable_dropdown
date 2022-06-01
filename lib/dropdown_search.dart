@@ -514,8 +514,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
           context,
           getSelectedItem,
         );
-      }
-      else if (widget.dropdownBuilderMultiSelection != null)
+      } else if (widget.dropdownBuilderMultiSelection != null)
         return widget.dropdownBuilderMultiSelection!(
           context,
           getSelectedItems,
@@ -530,9 +529,9 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       return Text(
         _selectedItemAsString(getSelectedItem),
         style: TextStyle(
-          fontSize: check(context)?20:14,
-            // color: isDarkMode ? darkMode.textColor : lightMode.textColor,
-            ),
+          fontSize: check(context) ? 20 : 14,
+          // color: isDarkMode ? darkMode.textColor : lightMode.textColor,
+        ),
       );
     }
 
@@ -813,6 +812,7 @@ class DropdownSearchState<T> extends State<DropdownSearch<T>> {
       key: _popupStateKey,
       topText: widget.topText,
       topTextSize: widget.topTextSize,
+      mode: widget.mode,
       noDataText: widget.noDataText,
       // isDark: widget.isDark,
       popupTitle: widget.popupTitle,

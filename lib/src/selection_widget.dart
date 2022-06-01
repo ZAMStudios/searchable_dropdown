@@ -88,6 +88,7 @@ class SelectionWidget<T> extends StatefulWidget {
 
   final String topText;
   final double topTextSize;
+  final Mode mode;
 
   // final bool isDark;
 
@@ -96,6 +97,7 @@ class SelectionWidget<T> extends StatefulWidget {
     this.popupTitle,
     required this.topText,
     this.items,
+    this.mode = Mode.DIALOG,
     this.maxHeight,
     this.showSearchBox = false,
     this.isFilteredOnline = false,
@@ -204,61 +206,63 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 7,
+                    widget.mode == Mode.MENU
+                        ? SizedBox()
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 7,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_back_ios_rounded,
+                                      size: 20,
+                                      // color: isDarkMode
+                                      //     ? darkMode.textColor
+                                      //     : lightMode.textColor,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Icon(
-                                Icons.arrow_back_ios_rounded,
-                                size: 20,
-                                // color: isDarkMode
-                                //     ? darkMode.textColor
-                                //     : lightMode.textColor,
+                              Spacer(),
+                              Text(
+                                widget.topText,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w700,
+                                  // color: isDarkMode
+                                  //     ? darkMode.textColor
+                                  //     : lightMode.textColor,
+                                ),
+                              ),
+                              Spacer(),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.clear,
+                                      size: 24,
+                                      // color: isDarkMode
+                                      //     ? darkMode.textColor
+                                      //     : lightMode.textColor,
+                                    ),
+                                    SizedBox(
+                                      width: 7,
+                                    )
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                        Spacer(),
-                        Text(
-                          widget.topText,
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700,
-                            // color: isDarkMode
-                            //     ? darkMode.textColor
-                            //     : lightMode.textColor,
-                          ),
-                        ),
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.clear,
-                                size: 24,
-                                // color: isDarkMode
-                                //     ? darkMode.textColor
-                                //     : lightMode.textColor,
-                              ),
-                              SizedBox(
-                                width: 7,
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
                     _searchField(),
                     _favoriteItemsWidget(),
                     Expanded(
